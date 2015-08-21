@@ -1,0 +1,15 @@
+<% provide(:title, 'All Posts') %>
+<h1>All Posts</h1>
+  <ul class="posts">
+  <% @posts.each do |post| %>
+    <li class="post" id="<%= dom_id(post)%>">
+      <h3><%= post.title %></h3>
+      <div class="post_content">
+        <%= post.content %>
+      </div>
+      <div class="post_infos">
+        Created at : <%= post.created_at %>
+      </div>
+    </li>
+  <% end %>
+</ul>
