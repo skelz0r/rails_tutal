@@ -16,6 +16,11 @@ class PostsController < ApplicationController
     end
   end
 
+  def show
+    @post = Post.find(params[:id])
+    @comment = @post.comments.build if logged_in?
+  end
+
   def index
     @posts = Post.all
   end
