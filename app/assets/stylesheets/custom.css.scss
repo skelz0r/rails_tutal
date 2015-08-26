@@ -53,6 +53,11 @@ h2 {
   font-weight: normal;
   color: $gray-light;
 }
+
+h4 {
+  text-align:center;
+  padding: 10px;
+}
 p{
 font-size: 1.1em; line-height: 1.7em;
 }
@@ -129,6 +134,7 @@ aside {
 .gravatar {
   float: left;
   margin-right: 10px;
+  width : 30px;
 }
 .gravatar_edit {
   margin-top: 15px;
@@ -167,17 +173,19 @@ color: red;
   }
 }
 .posts {
+  text-align: justify;
   list-style: none;
   margin: 0;
   li {
     overflow: auto;
-    padding: 10px 0;
+    padding: 10px;
     border-bottom: 1px solid $gray-lighter;
   }
   .post_content {
     text-align: justify;
   }
   .post_infos {
+    padding-top: 10px;
     text-align: right;
     font-size : 0.8em;
   }
@@ -185,9 +193,14 @@ color: red;
 
 .comments {
   .comment_content {
+    min-height : 100px;
     text-align: justify;
-    padding: 10px;
     font-size : 0.8em;
+  }
+  .comment_infos {
+    padding-bottom: 10px;
+    text-align : right;
+    font-size: 0.7em;
   }
 }
 #session_remember_me {

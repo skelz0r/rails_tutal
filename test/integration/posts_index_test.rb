@@ -4,7 +4,8 @@ class PostsIndexTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:michael)
-    @post = posts(:one)
+    @post = @user.posts.build(title: "Sacha", content: "Sacha")
+    @post.save
   end
 
   test "correct templates" do
@@ -17,7 +18,7 @@ class PostsIndexTest < ActionDispatch::IntegrationTest
 
   test "number of posts" do
     get  '/index'
-    assert_select "li.post", Post.count
+    assert_select ".post_content", Post.count
   end
 
 end
