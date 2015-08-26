@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
 
-  get 'index' => 'posts#index'  
+  get 'index' => 'posts#index'
   get 'help' => 'static_pages#help'
   get 'about' => 'static_pages#about'
   get 'contact' => 'static_pages#contact'
@@ -11,8 +11,9 @@ Rails.application.routes.draw do
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
-  
-  resources :users
-  resources :posts
-  
+
+  resources :users, only: [:new, :create, :show]
+  resources :posts,  only: [:new, :create, :show, :index]
+  resources :comments, only: [:create]
+
 end
