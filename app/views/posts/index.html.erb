@@ -3,6 +3,7 @@
   <div class="page-header">
     <h1>All Posts</h1>
   </div>
+  <%= will_paginate %>
   <% @posts.each do |post| %>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -21,5 +22,6 @@
       </div>
     </div>
   <% end %>
+  <%= will_paginate %>
 </aside>
 

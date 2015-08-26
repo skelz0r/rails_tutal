@@ -4,8 +4,10 @@ class PostsIndexTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:michael)
-    @post = @user.posts.build(title: "Sacha", content: "Sacha")
-    @post.save
+    @posts = []
+    9.times do
+      @posts << Post.create!(title: "title", content: "content", user_id: @user.id)
+    end
   end
 
   test "correct templates" do
@@ -16,9 +18,14 @@ class PostsIndexTest < ActionDispatch::IntegrationTest
     assert_select "h1", 1
   end
 
-  test "number of posts" do
+  test "pagination" do
     get  '/index'
-    assert_select ".post_content", Post.count
+    assert_select 'div.pagination'
+    assert_select ".post_content", 5
+    get  '/index?page=2'
+    assert_select ".post_content", 4
+    get  '/index?page=3'
+    assert_select ".post_content", 0
   end
 
 end
