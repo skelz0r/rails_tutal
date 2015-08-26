@@ -4,8 +4,36 @@ class PostShowTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:michael)
-    @post = @user.posts.build(title: "Sacha", content: "Sacha")
-    @post.save
+    @post = @user.posts.create(title: "Sacha", content: "Sacha")
+  end
+
+  test "when the post author is not log, it display no link to delete" do
+    login
+    get "/posts/#{@post.id}", to: 'posts#show'
+
+    assert_select "a[href=\"/posts/#{@post.id}\"][data-method=?]", "delete", 0
+  end
+
+  test "when the post author is log, it display link to delete" do
+    post login_path, session: { email: @user.email,
+      password: "password",
+      remember_me: 1
+    }
+    get "/posts/#{@post.id}", to: 'posts#show'
+
+    assert_select "a[href=\"/posts/#{@post.id}\"][data-method=?]", "delete", 1
+  end
+
+  test "when the post author click on delete, his post is deleted" do
+    post login_path, session: { email: @user.email,
+      password: "password",
+      remember_me: 1
+    }
+    get "/posts/#{@post.id}", to: 'posts#show'
+
+    assert_difference 'Post.count', -1 do
+      delete post_path
+    end
   end
 
   test "it display correct template" do
@@ -72,6 +100,7 @@ class PostShowTest < ActionDispatch::IntegrationTest
     assert_no_difference 'Comment.count' do
       post_via_redirect comments_path, form
     end
+
     assert_template 'posts/show'
     assert_equal flash[:danger], "Incorrect comment !"
   end
