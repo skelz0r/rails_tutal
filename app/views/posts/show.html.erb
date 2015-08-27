@@ -1,0 +1,53 @@
+<% provide(:title, @post.title) %>
+<div class="col-md-8 col-md-offset-2">
+  <div class="page-header">
+    <h1><%= @post.title %></h1>
+  </div>
+  <div class="posts">
+    <div class="post_content">
+      <%= @post.content %>
+    </div>
+    <div class="post_infos">
+      Created at : <%= @post.created_at %> by <%= @post.user.name %>.
+      <% if current_user == @post.user %>
+        <%= link_to " Delete", @post, method: :delete, data: { confirm: "Are you sure?" } %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="col-md-6 col-md-offset-3">
+  <h4>COMMENT (<%= @post.comments.count %>)</h4>
+  <div class="comments">
+    <% @post.comments.all.each do |comment| %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="media">
+            <div class="media-left">
+              <%= gravatar_for @post.user %>
+            </div>
+            <div class="medi-body">
+              by <%= @post.user.name %>
+            </div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="comment_content">
+            <%= comment.content %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <% if logged_in? %>
+    <%= form_for @comment, class: "form-vertical" do |form| %>
+      <%= render 'shared/error_messages', object: form.object %>
+      <div class="form-group">
+        <%= form.text_area :content,  placeholder: "Compose new comment...", class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= form.hidden_field :post_id, value: @post.id %>
+      </div>
+      <%= form.submit "Post comment", class: "btn btn-primary" %>
+    <% end %>
+  <% end %>
+</div>

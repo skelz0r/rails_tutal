@@ -53,6 +53,11 @@ h2 {
   font-weight: normal;
   color: $gray-light;
 }
+
+h4 {
+  text-align:center;
+  padding: 10px;
+}
 p{
 font-size: 1.1em; line-height: 1.7em;
 }
@@ -86,7 +91,7 @@ footer {
 		}
 	}
 }
- 
+
 footer small {
   float: left;
 }
@@ -122,13 +127,14 @@ aside {
       letter-spacing: -1px;
       margin-bottom: 3px;
       margin-top: 0px;
-    } 
+    }
   }
 }
 
 .gravatar {
   float: left;
   margin-right: 10px;
+  width : 30px;
 }
 .gravatar_edit {
   margin-top: 15px;
@@ -164,6 +170,37 @@ color: red;
   span {
     margin-left: 20px;
     font-weight: normal;
+  }
+}
+.posts {
+  text-align: justify;
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px;
+    border-bottom: 1px solid $gray-lighter;
+  }
+  .post_content {
+    text-align: justify;
+  }
+  .post_infos {
+    padding-top: 10px;
+    text-align: right;
+    font-size : 0.8em;
+  }
+}
+
+.comments {
+  .comment_content {
+    min-height : 100px;
+    text-align: justify;
+    font-size : 0.8em;
+  }
+  .comment_infos {
+    padding-bottom: 10px;
+    text-align : right;
+    font-size: 0.7em;
   }
 }
 #session_remember_me {
